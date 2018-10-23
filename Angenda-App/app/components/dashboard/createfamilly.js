@@ -8,7 +8,8 @@ import {
   TouchableOpacity,
   AsyncStorage
 } from "react-native";
-export default class SignIn extends React.Component {
+import { Card, ListItem, Button, Icon, Badge, Header } from "react-native-elements";
+export default class CreateFamilly extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -27,11 +28,23 @@ export default class SignIn extends React.Component {
   };
   render() {
     return <KeyboardAvoidingView behavior="padding" style={styles.wrapper}>
+        <Header
+            centerComponent={{ text: 'CONSTITUER VOTRE FAMILLE', style: { color: '#fff' } }}
+            rightComponent={{ icon: 'check-circle', color: '#fff' }}
+        />
+        <Text h1>Nommez vore famille par exemple la famille FabAwaXel</Text>
         <View style={styles.container}>
-          <Text style={styles.header}> -CONNEXION-</Text>
-          <TextInput style={styles.textInput} placeholder="Username" onChangeText={username => this.setState(
+
+
+
+          <TextInput style={styles.textInput} placeholder="Nom de la famille" onChangeText={username => this.setState(
                 { username }
               )} underlineColorAndroid="transparent" />
+          <Text style={styles.header}>
+            {" "}
+            Ajoutez les membres adultes de votre famille
+          </Text>
+          <Icon raised name="plus-circle" type="font-awesome" color="#f50" color="#517fa4" onPress={() => alert("test add")} />
 
           <TextInput style={styles.textInput} placeholder="Password" onChangeText={password => this.setState(
                 { password }
@@ -40,9 +53,8 @@ export default class SignIn extends React.Component {
             <Text>CONNECTEZ VOUS</Text>
           </TouchableOpacity>
           <TouchableOpacity>
-            <Text style={styles.textdown}></Text>
+            <Text style={styles.textdown} />
             <Text style={styles.textdown}>Mot de passe Oublié?</Text>
-
           </TouchableOpacity>
           <TouchableOpacity>
             <Text style={styles.textdown}>INSCRIVEZ VOUS</Text>
@@ -52,7 +64,7 @@ export default class SignIn extends React.Component {
   }
 
   login = () => {
-    alert('test');
+    alert("test");
   };
 }
 
@@ -64,7 +76,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#ff530d",
+    backgroundColor: "#ffdac7",
     paddingLeft: 40,
     paddingRight: 40
   },
