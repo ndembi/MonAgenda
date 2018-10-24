@@ -2,58 +2,79 @@ import React from "react";
 import {
   StyleSheet,
   Text,
-  View,
   TextInput,
-  KeyboardAvoidingView,
+  View,
   TouchableOpacity,
-  AsyncStorage
+  KeyboardAvoidingView
 } from "react-native";
+import * as firebase from "firebase";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDJjUeEkm7-dApWv3nKATxoPcAtROhruFg",
+  authDomain: "mobagenda-1d650.firebaseapp.com",
+  databaseURL: "https://mobagenda-1d650.firebaseio.com",
+  projectId: "mobagenda-1d650",
+  storageBucket: "mobagenda-1d650.appspot.com"
+};
 export default class SignIn extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: "",
-      password: ""
-    };
-  }
+  state = { email: "", password: "", errorMessage: null };
   componentDidMount() {
-    this._loadInitialisation().done();
-  }
-  _loadInitialisation = async () => {
-    var value = await AsyncStorage.getItem("user");
-    if (value !== null) {
-      this.props.navigation.navigate("Profile");
+    if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
     }
+  }
+  handleLogin = () => {
+    const { email, password } = this.state;
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .then(() => this.props.navigation.navigate("Loading"))
+      .catch(error => this.setState({ errorMessage: error.message }));
+    console.log("leadder xelo");
   };
   render() {
-    return <KeyboardAvoidingView behavior="padding" style={styles.wrapper}>
+    return (
+      <KeyboardAvoidingView behavior="padding" style={styles.wrapper}>
         <View style={styles.container}>
           <Text style={styles.header}> -CONNEXION-</Text>
-          <TextInput style={styles.textInput} placeholder="Username" onChangeText={username => this.setState(
-                { username }
-              )} underlineColorAndroid="transparent" />
-
-          <TextInput style={styles.textInput} placeholder="Password" onChangeText={password => this.setState(
-                { password }
-              )} underlineColorAndroid="transparent" secureTextEntry={true} />
-          <TouchableOpacity style={styles.btn} onPress={this.login}>
+          {this.state.errorMessage && (
+            <Text style={{ color: "blue" }}>{this.state.errorMessage}</Text>
+          )}
+          <TextInput
+            style={styles.textInput}
+            underlineColorAndroid="transparent"
+            autoCapitalize="none"
+            placeholder="Email"
+            onChangeText={email => this.setState({ email })}
+            value={this.state.email}
+          />
+          <TextInput
+            secureTextEntry
+            style={styles.textInput}
+            underlineColorAndroid="transparent"
+            autoCapitalize="none"
+            placeholder="Password"
+            onChangeText={password => this.setState({ password })}
+            value={this.state.password}
+          />
+          <TouchableOpacity style={styles.btn} onPress={this.handleLogin}>
             <Text>CONNECTEZ VOUS</Text>
           </TouchableOpacity>
-          <TouchableOpacity>
-            <Text style={styles.textdown}></Text>
-            <Text style={styles.textdown}>Mot de passe Oublié?</Text>
 
-          </TouchableOpacity>
           <TouchableOpacity>
-            <Text style={styles.textdown}>INSCRIVEZ VOUS</Text>
+            <Text style={styles.textdown} />
+            <Text style={styles.textdown}>Mot de passe Oublié?</Text>
+            <Text
+              onPress={() => this.props.navigation.navigate("SignUp")}
+              style={styles.textdown}
+            >
+              Créer un compte
+            </Text>
           </TouchableOpacity>
         </View>
-      </KeyboardAvoidingView>;
+      </KeyboardAvoidingView>
+    );
   }
-
-  login = () => {
-    alert('test');
-  };
 }
 
 const styles = StyleSheet.create({

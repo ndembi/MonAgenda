@@ -1,64 +1,80 @@
 import React from "react";
+import * as firebase from "firebase";
 import {
-    StyleSheet,
-    Text,
-    View,
-    TextInput,
-    KeyboardAvoidingView,
-    TouchableOpacity,
-    AsyncStorage
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  KeyboardAvoidingView,
+  TouchableOpacity
 } from "react-native";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDJjUeEkm7-dApWv3nKATxoPcAtROhruFg",
+  authDomain: "mobagenda-1d650.firebaseapp.com",
+  databaseURL: "https://mobagenda-1d650.firebaseio.com",
+  projectId: "mobagenda-1d650",
+  storageBucket: "mobagenda-1d650.appspot.com"
+};
 export default class SignUp extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            username: "",
-            password: ""
-        };
+  state = { email: "", password: "", errorMessage: null };
+
+  componentDidMount() {
+    if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
     }
-    componentDidMount() {
-        this._loadInitialisation().done();
-    }
-    _loadInitialisation = async () => {
-        var value = await AsyncStorage.getItem("user");
-        if (value !== null) {
-            this.props.navigation.navigate("Profile");
-        }
-    };
-    render() {
-        return <KeyboardAvoidingView behavior="padding" style={styles.wrapper}>
-            <View style={styles.container}>
-              <Text style={styles.header}> -CREER UN COMPTE-</Text>
-              <TextInput style={styles.textInput} placeholder="Username" onChangeText={username => this.setState(
-                    { username }
-                  )} underlineColorAndroid="transparent" />
+  }
 
-              <TextInput style={styles.textInput} placeholder="Password" onChangeText={password => this.setState(
-                    { password }
-                  )} underlineColorAndroid="transparent" secureTextEntry={true} />
+  handleSignUp = () => {
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(this.state.email, this.state.password)
+      .then(() => this.props.navigation.navigate("Dashboard"))
+      .catch(error => this.errorSignUp(error.message));
+  };
 
-              <TextInput style={styles.textInput} placeholder="Retapez le même password" onChangeText={password => this.setState(
-                    { password }
-                  )} underlineColorAndroid="transparent" secureTextEntry={true} />
+  errorSignUp = error => {
+    alert(error);
+  };
 
-                <TouchableOpacity style={styles.btn} onPress={this.signUpAction}>
-                <Text>CREER</Text>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={this.signInAction}>
-                <Text style={styles.textdown} />
-                <Text style={styles.textdown}>CONNECTEZ VOUS</Text>
-              </TouchableOpacity>
-            </View>
-          </KeyboardAvoidingView>;
-    }
+  render() {
+    return (
+      <KeyboardAvoidingView behavior="padding" style={styles.wrapper}>
+        <View style={styles.container}>
+          <Text style={styles.header}> -CREER UN COMPTE-</Text>
+          <TextInput
+            style={styles.textInput}
+            placeholder="email"
+            underlineColorAndroid="transparent"
+            onChangeText={email => this.setState({ email })}
+            value={this.state.email}
+          />
 
-    signUpAction = () => {
-        alert('test sign up');
-    };
-    signInAction = () =>{
-        alert("test Sign in action");
+          <TextInput
+            style={styles.textInput}
+            placeholder="Mot de passe"
+            onChangeText={password => this.setState({ password })}
+            value={this.state.password}
+            underlineColorAndroid="transparent"
+            secureTextEntry={true}
+          />
 
-    };
+          <TouchableOpacity style={styles.btn} onPress={this.handleSignUp}>
+            <Text>CREER</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={this.signInAction}>
+            <Text style={styles.textdown} />
+            <Text
+              style={styles.textdown}
+              onPress={() => this.props.navigation.navigate("SignIn")}
+            >
+              CONNECTEZ VOUS
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </KeyboardAvoidingView>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
