@@ -4,12 +4,13 @@ import { TASK } from '../model';
 import { APP_COLORS } from '../../styles/color'
 import { style } from './style';
 
-const TaskList = ({taskList}) => (
+const TaskList = ({taskList, onPressCallBack}) => (
     <List containerStyle={style.list}>
         {taskList.map(task => (
             <ListItem 
                 key={task.id} 
                 title={task.user}
+                onPress={() => onPressCallBack(task.description)}
                 badge={{
                     element: <Badge value={task.status}
                     containerStyle = {

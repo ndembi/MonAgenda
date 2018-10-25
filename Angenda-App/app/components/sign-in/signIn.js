@@ -73,7 +73,7 @@ export default class SignIn extends React.Component {
           </TouchableOpacity>
           <TouchableOpacity>
             <Text>
-              v 0.3
+              v 0.4
             </Text>
           </TouchableOpacity>
         </View>
