@@ -19,11 +19,4 @@ const App = createSwitchNavigator(
   }
 );
 
-const firebaseConfig = {
-  apiKey: "AIzaSyDJjUeEkm7-dApWv3nKATxoPcAtROhruFg",
-  authDomain: "mobagenda-1d650.firebaseapp.com",
-  databaseURL: "https://mobagenda-1d650.firebaseio.com",
-  projectId: "mobagenda-1d650",
-  storageBucket: "mobagenda-1d650.appspot.com"
-}
 export default App;

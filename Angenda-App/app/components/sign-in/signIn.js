@@ -31,7 +31,6 @@ export default class SignIn extends React.Component {
       .signInWithEmailAndPassword(email, password)
       .then(() => this.props.navigation.navigate("Loading"))
       .catch(error => this.setState({ errorMessage: error.message }));
-    console.log("leadder xelo");
   };
   render() {
     return (
@@ -70,6 +69,11 @@ export default class SignIn extends React.Component {
               style={style.textdown}
             >
               Créer un compte
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Text>
+              v 0.3
             </Text>
           </TouchableOpacity>
         </View>

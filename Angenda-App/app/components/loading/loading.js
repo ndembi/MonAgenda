@@ -1,6 +1,8 @@
 import React from "react";
 import * as firebase from "firebase";
 import { View, Text, ActivityIndicator, StyleSheet } from "react-native";
+import {style} from './style';
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyDJjUeEkm7-dApWv3nKATxoPcAtROhruFg",
@@ -26,18 +28,10 @@ export default class Loading extends React.Component {
   }
   render() {
     return (
-      <View style={styles.container}>
+      <View style={style.container}>
         <Text>CONNEXION EN COURS....</Text>
         <ActivityIndicator size="large" />
       </View>
     );
   }
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#e8a84e"
-  }
-});
