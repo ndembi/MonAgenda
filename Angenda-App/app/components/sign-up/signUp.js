@@ -16,6 +16,8 @@ const firebaseConfig = {
   projectId: "mobagenda-1d650",
   storageBucket: "mobagenda-1d650.appspot.com"
 };
+import {style} from './style';
+
 export default class SignUp extends React.Component {
   state = { email: "", password: "", errorMessage: null };
 
@@ -39,11 +41,11 @@ export default class SignUp extends React.Component {
 
   render() {
     return (
-      <KeyboardAvoidingView behavior="padding" style={styles.wrapper}>
-        <View style={styles.container}>
-          <Text style={styles.header}> -CREER UN COMPTE-</Text>
+      <KeyboardAvoidingView behavior="padding" style={style.wrapper}>
+        <View style={style.container}>
+          <Text style={style.header}> -CREER UN COMPTE-</Text>
           <TextInput
-            style={styles.textInput}
+            style={style.textInput}
             placeholder="email"
             underlineColorAndroid="transparent"
             onChangeText={email => this.setState({ email })}
@@ -51,7 +53,7 @@ export default class SignUp extends React.Component {
           />
 
           <TextInput
-            style={styles.textInput}
+            style={style.textInput}
             placeholder="Mot de passe"
             onChangeText={password => this.setState({ password })}
             value={this.state.password}
@@ -59,13 +61,13 @@ export default class SignUp extends React.Component {
             secureTextEntry={true}
           />
 
-          <TouchableOpacity style={styles.btn} onPress={this.handleSignUp}>
+          <TouchableOpacity style={style.btn} onPress={this.handleSignUp}>
             <Text>CREER</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={this.signInAction}>
-            <Text style={styles.textdown} />
+            <Text style={style.textdown} />
             <Text
-              style={styles.textdown}
+              style={style.textdown}
               onPress={() => this.props.navigation.navigate("SignIn")}
             >
               CONNECTEZ VOUS
@@ -76,43 +78,3 @@ export default class SignUp extends React.Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  wrapper: {
-    flex: 1
-  },
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#ff530d",
-    paddingLeft: 40,
-    paddingRight: 40
-  },
-  header: {
-    fontSize: 24,
-    marginBottom: 60,
-    color: "#fff",
-    fontWeight: "bold"
-  },
-  textInput: {
-    alignSelf: "stretch",
-    padding: 16,
-    marginBottom: 20,
-    backgroundColor: "#fff"
-  },
-  btn: {
-    alignSelf: "stretch",
-    padding: 16,
-    backgroundColor: "#01c853",
-    padding: 20,
-    alignItems: "center"
-  },
-  textdown: {
-    fontSize: 20,
-    marginBottom: 20,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#ff530d"
-  }
-});

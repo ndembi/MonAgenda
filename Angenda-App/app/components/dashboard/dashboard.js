@@ -1,23 +1,17 @@
 import React from 'react'
 import { StyleSheet, Platform, Image, Text, View } from 'react-native'
+import {style} from './style';
+
 export default class Main extends React.Component {
     state = { currentUser: null }
     render() {
         const { currentUser } = this.state
         return (
-            <View style={styles.container}>
+            <View style={style.container}>
                 <Text>
-                    Hi {currentUser && currentUser.email}!
+                   v4 {currentUser && currentUser.email}!
         </Text>
             </View>
         )
     }
 }
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: "#e8a84e"
-    }
-})

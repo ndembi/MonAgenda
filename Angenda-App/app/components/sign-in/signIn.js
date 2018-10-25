@@ -8,6 +8,7 @@ import {
   KeyboardAvoidingView
 } from "react-native";
 import * as firebase from "firebase";
+import {style} from './style';
 
 const firebaseConfig = {
   apiKey: "AIzaSyDJjUeEkm7-dApWv3nKATxoPcAtROhruFg",
@@ -34,14 +35,14 @@ export default class SignIn extends React.Component {
   };
   render() {
     return (
-      <KeyboardAvoidingView behavior="padding" style={styles.wrapper}>
-        <View style={styles.container}>
-          <Text style={styles.header}> -CONNEXION-</Text>
+      <KeyboardAvoidingView behavior="padding" style={style.wrapper}>
+        <View style={style.container}>
+          <Text style={style.header}> -CONNEXION-</Text>
           {this.state.errorMessage && (
             <Text style={{ color: "blue" }}>{this.state.errorMessage}</Text>
           )}
           <TextInput
-            style={styles.textInput}
+            style={style.textInput}
             underlineColorAndroid="transparent"
             autoCapitalize="none"
             placeholder="Email"
@@ -50,23 +51,23 @@ export default class SignIn extends React.Component {
           />
           <TextInput
             secureTextEntry
-            style={styles.textInput}
+            style={style.textInput}
             underlineColorAndroid="transparent"
             autoCapitalize="none"
             placeholder="Password"
             onChangeText={password => this.setState({ password })}
             value={this.state.password}
           />
-          <TouchableOpacity style={styles.btn} onPress={this.handleLogin}>
+          <TouchableOpacity style={style.btn} onPress={this.handleLogin}>
             <Text>CONNECTEZ VOUS</Text>
           </TouchableOpacity>
 
           <TouchableOpacity>
-            <Text style={styles.textdown} />
-            <Text style={styles.textdown}>Mot de passe Oublié?</Text>
+            <Text style={style.textdown} />
+            <Text style={style.textdown}>Mot de passe Oublié?</Text>
             <Text
               onPress={() => this.props.navigation.navigate("SignUp")}
-              style={styles.textdown}
+              style={style.textdown}
             >
               Créer un compte
             </Text>
@@ -76,43 +77,3 @@ export default class SignIn extends React.Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  wrapper: {
-    flex: 1
-  },
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#ff530d",
-    paddingLeft: 40,
-    paddingRight: 40
-  },
-  header: {
-    fontSize: 24,
-    marginBottom: 60,
-    color: "#fff",
-    fontWeight: "bold"
-  },
-  textInput: {
-    alignSelf: "stretch",
-    padding: 16,
-    marginBottom: 20,
-    backgroundColor: "#fff"
-  },
-  btn: {
-    alignSelf: "stretch",
-    padding: 16,
-    backgroundColor: "#01c853",
-    padding: 20,
-    alignItems: "center"
-  },
-  textdown: {
-    fontSize: 20,
-    marginBottom: 20,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#ff530d"
-  }
-});
