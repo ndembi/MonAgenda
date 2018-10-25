@@ -3,6 +3,7 @@ import { StyleSheet, Platform, Image, ScrollView, Text, View } from 'react-nativ
 import Header from '../header';
 import TaskList from '../task-list';
 import ButtonAddTask from '../button-add-task';
+import MenuTask from '../menu-task';
 
 const taskList = [
     {
@@ -63,6 +64,7 @@ export default class Main extends React.Component {
                 <ScrollView>
                     <TaskList onPressCallBack={this.displayMenutask} taskList={this.state.taskList}/>
                 </ScrollView>
+                <MenuTask />
                 <ButtonAddTask onPressCallBack={this.displayAddPrompt} />
             </View>
         );
